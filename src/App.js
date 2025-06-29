@@ -14,7 +14,9 @@ function App() {
     const fetchPokemonData = async () => {
       // Fetch all pokemon data till the end of the page
       let res = await getAllPokemon(initialURL);
-      console.log(res.results);
+      console.log("All pokemon data : ",res);
+      console.log("All pokemon data results : ", res.results);
+
       // Fetch detailed data of each pokemon
       loadPokemon(res.results);
       setLoading(false);
@@ -23,16 +25,15 @@ function App() {
   }, []);
 
   const loadPokemon = (data) => {
+    // Promise.all receives an array as an argument and ensures that all the data in the array is fetched
     const _pokemonData = Promise.all(
       data.map(pokemon => {
-        // console.log("Result: ", pokemon);
-
-        // pokemon.url is the endpoint path to the pokemon's detailed data
-        let pokemonRecord = getPokemon(pokemon.url);
-
-        return pokemonRecord;
-      })
-    )
+          // pokemon.url is the endpoint path to the pokemon's detailed data
+          let pokemonRecord = getPokemon(pokemon.url);
+  
+          return pokemonRecord;
+        })
+    );
   }
 
   return <div className="App">
