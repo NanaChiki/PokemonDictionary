@@ -8,6 +8,8 @@ function App() {
 
   // State to store all pokemon data
   const [loading, setLoading] = useState(true);
+  // State to store each pokemon's detailed data
+  const [pokemonData, setPokemonData] = useState([]);
 
 
   useEffect(() => {
@@ -24,17 +26,20 @@ function App() {
     fetchPokemonData();
   }, []);
 
-  const loadPokemon = (data) => {
+  const loadPokemon = async (data) => {
     // Promise.all receives an array as an argument and ensures that all the data in the array is fetched
-    const _pokemonData = Promise.all(
+    ///// I'm gonna see _pokemonData in the console tomorrow ////////
+    const _pokemonData = await Promise.all(
       data.map(pokemon => {
           // pokemon.url is the endpoint path to the pokemon's detailed data
           let pokemonRecord = getPokemon(pokemon.url);
-  
           return pokemonRecord;
         })
     );
+    setPokemonData(_pokemonData); // Store the fetched data in state
   }
+  // since _pokemonData is stored in state, we can access it outside of the loadPokemon function
+  console.log("Detailed data 2: ", pokemonData);
 
   return <div className="App">
     {loading ? <h1>Loading ...</h1> : <h1>Pokemon Cards have been loaded</h1>}
