@@ -4,6 +4,12 @@
   border-radius: 10px;
   padding-bottom: 14px;
   background-color: white;
+  border: 5px ridge bisque;
+}
+.card:hover {
+  cursor: pointer;
+  /* scale: 1.1 1.1; */
+  transform: scale(1.1, 1.1);
 }
 
 .cardName {

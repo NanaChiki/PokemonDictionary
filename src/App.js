@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import { getAllPokemon, getPokemon } from './utils/pokemon.js';
 import Card from './utils/components/Card/card.js';
+import Navbar from './utils/components/Navbar/Navbar.js';
 
 function App() {
   // Initial Endpoint
@@ -42,28 +43,21 @@ function App() {
   console.log('Detailed data 2: ', pokemonData);
 
   return (
-    <div className="App">
-      {loading ? (
-        <h1>Loading ...</h1>
-      ) : (
-        <div className="pokemonCardContainer">
-          {pokemonData.map((pokemon, i) => {
-            // return (
-            //   <div key={i} className="pokemonCard">
-            //     <h3>{pokemon.name}</h3>
-            //     <img src={pokemon.sprites.front_default} alt={pokemon.name} />
-            //     <img src={pokemon.sprites.back_default} alt={pokemon.name} />
-            //     <p>Height: {pokemon.height}</p>
-            //     <p>Weight: {pokemon.weight}</p>
-            //   </div>
-            // )
-
-            // Card component is imported from card.js: pokemon={pokemon} is passed as a prop to the Card component
-            return <Card key={i} pokemon={pokemon} />;
-          })}
-        </div>
-      )}
-    </div>
+    <>
+      <Navbar />
+      <div className="App">
+        {loading ? (
+          <h1>Loading ...</h1>
+        ) : (
+          <div className="pokemonCardContainer">
+            {/* <h1 class="appName">Pokemon Dictionary</h1> */}
+            {pokemonData.map((pokemon, i) => {
+              return <Card key={i} pokemon={pokemon} />;
+            })}
+          </div>
+        )}
+      </div>
+    </>
   );
 }
 
