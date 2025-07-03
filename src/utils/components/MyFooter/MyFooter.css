@@ -1,0 +1,14 @@
+footer {
+  font-size: medium;
+  color:rgb(44, 41, 41);
+  background-color: antiquewhite;
+  height: 50px;
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer:hover {
+  cursor: pointer;
+}

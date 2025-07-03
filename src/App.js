@@ -3,6 +3,7 @@ import './App.css';
 import { getAllPokemon, getPokemon } from './utils/pokemon.js';
 import Card from './utils/components/Card/card.js';
 import Navbar from './utils/components/Navbar/Navbar.js';
+import MyFooter from './utils/components/MyFooter/MyFooter.js';
 
 function App() {
   // Initial Endpoint
@@ -57,6 +58,7 @@ function App() {
           </div>
         )}
       </div>
+      <MyFooter />
     </>
   );
 }
