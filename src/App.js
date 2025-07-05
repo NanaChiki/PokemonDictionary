@@ -4,7 +4,6 @@ import { getAllPokemon, getPokemon } from './utils/pokemon.js';
 import Card from './utils/components/Card/card.js';
 import Navbar from './utils/components/Navbar/Navbar.js';
 import MyFooter from './utils/components/MyFooter/MyFooter.js';
-import handleNextPage from './utils/components/PNButtons/handleNextPage.js'
 
 function App() {
   // Initial Endpoint
@@ -15,6 +14,8 @@ function App() {
   // State to store each pokemon's detailed data
   const [pokemonData, setPokemonData] = useState([]);
   const [nextURL, setNextURL] = useState('');
+  const [prevURL, setPrevURL] = useState('');
+
 
   useEffect(() => {
     const fetchPokemonData = async () => {
@@ -24,9 +25,10 @@ function App() {
       console.log('All pokemon data : ', res);
       console.log('All pokemon data results : ', res.results);
      
-      // Store the URL of the next 20 pokemon
+      // Store the URL of the next & previous 20 pokemon
       setNextURL(res.next);
-
+      setPrevURL(res.previous);
+      
       // Fetch detailed data of each pokemon
       loadPokemon(res.results);
       setLoading(false);
@@ -51,10 +53,21 @@ function App() {
 
  const handleNextPage = async () => {
   setLoading(true);
-  console.log(nextURL);
   let nextData = await getAllPokemon(nextURL);
-  loadPokemon(nextData.results);
+  await loadPokemon(nextData.results);
+  setNextURL(nextData.next);
+  setPrevURL(nextData.previous);
   setLoading(false);
+ }
+
+ const handlePrevPage = async () => {
+    if (!prevURL) return;
+    setLoading(true)
+    let prevData = await getAllPokemon(prevURL);
+    await loadPokemon(prevData.results);
+    setNextURL(prevData.next);
+    setPrevURL(prevData.previous);
+    setLoading(false);
  }
 
   return (
@@ -72,6 +85,7 @@ function App() {
           </div>
         )}
       {/* <button onClick={handlePrevPage}>Previous</button> */}
+      <button onClick={handlePrevPage}>Previous</button>
       <button onClick={handleNextPage}>Next</button>
       </div>
       <MyFooter />
