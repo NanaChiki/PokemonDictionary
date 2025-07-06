@@ -75,20 +75,25 @@ function App() {
       <Navbar />
       <div className="App">
         {loading ? (
-          <h1>Loading ...</h1>
+            <h1 style={{fontSize: "2rem"}}>Loading ...</h1>
         ) : (
-          <div className="pokemonCardContainer">
-            {/* <h1 class="appName">Pokemon Dictionary</h1> */}
-            {pokemonData.map((pokemon, i) => {
-              return <Card key={i} pokemon={pokemon} />;
-            })}
-          </div>
+          <>
+            <div className="pokemonCardContainer">
+              {/* <h1 class="appName">Pokemon Dictionary</h1> */}
+              {pokemonData.map((pokemon, i) => {
+                return <Card key={i} pokemon={pokemon} />;
+              })}
+            </div>
+          </>
         )}
-      {/* <button onClick={handlePrevPage}>Previous</button> */}
-      <button onClick={handlePrevPage}>Previous</button>
-      <button onClick={handleNextPage}>Next</button>
+        {loading ? <></>: 
+          <div className="btn">
+            <button onClick={handlePrevPage}>Previous</button>
+            <button onClick={handleNextPage}>Next</button>
+          </div>
+        }
       </div>
-      <MyFooter />
+      {loading ? <></> : <MyFooter />}
     </>
   );
 }
